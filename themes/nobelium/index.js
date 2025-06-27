@@ -27,6 +27,7 @@ import Nav from './components/Nav'
 import SearchNavBar from './components/SearchNavBar'
 import CONFIG from './config'
 import { Style } from './style'
+import WordCount from './components/WordCount'
 
 const AlgoliaSearchModal = dynamic(
   () => import('@/components/AlgoliaSearchModal'),
