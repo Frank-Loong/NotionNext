@@ -64,19 +64,19 @@ export const BlogListScroll = props => {
           <h2 className='mb-4'>
             <Link
               href={`/${p.slug}`}
-              className='text-black text-xl md:text-2xl no-underline hover:underline'>
+              className='text-black text-xl md:text-2xl no-underline hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors'>
               {p.title}
             </Link>
           </h2>
 
           <div className='mb-4 text-sm text-gray-700'>
             by{' '}
-            <a href='#' className='text-gray-700 hover:text-black hover:underline transition-colors'>
+            <a href='#' className='text-gray-700 hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors'>
               {siteConfig('AUTHOR')}
             </a>{' '}
             on {p.date?.start_date || p.createdTime}
             <span className='font-bold mx-1'> | </span>
-            <a href='#' className='text-gray-700 hover:text-black hover:underline transition-colors'>
+            <a href='#' className='text-gray-700 hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors'>
               {p.category}
             </a>
             <span className='font-bold mx-1'> | </span>
