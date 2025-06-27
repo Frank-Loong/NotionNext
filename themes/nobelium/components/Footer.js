@@ -23,45 +23,48 @@ export const Footer = (props) => {
    >
      <hr className="border-gray-200 dark:border-gray-600" />
      
-     {/* 统一的页脚内容 */}
+     {/* 页脚内容 */}
      <div className='w-full py-6'>
-       <div className='flex flex-col items-center gap-y-4'>
-         {/* 站点信息 */}
-         <div className='flex items-center gap-x-2'>
-           {siteInfo?.icon && (
-             <LazyImage
-               src={siteInfo.icon}
-               className='rounded-full'
-               width={24}
-               alt={siteConfig('TITLE')}
-             />
-           )}
-           <span className='font-bold'>{siteConfig('TITLE')}</span>
+       <div className='flex justify-between items-start'>
+         {/* 左侧：站点信息和版权 */}
+         <div className='flex flex-col'>
+           {/* 站点信息 */}
+           <div className='flex items-center gap-x-2'>
+             {siteInfo?.icon && (
+               <LazyImage
+                 src={siteInfo.icon}
+                 className='rounded-full'
+                 width={24}
+                 alt={siteConfig('TITLE')}
+               />
+             )}
+             <span className='font-bold'>{siteConfig('TITLE')}</span>
+             {/* 版权信息 */}
+             <div className='flex items-center gap-x-1 ml-2'>
+               <i className='fas fa-copyright mx-1'></i>
+               <span>{copyrightDate}</span>
+             </div>
+           </div>
+           
+           {/* 站点描述 */}
+           <div className='mt-2'>{siteConfig('DESCRIPTION')}</div>
+           
+           {/* 备案信息 */}
+           <div className='flex flex-wrap items-center gap-x-2 mt-2'>
+             <BeiAnSite />
+             <BeiAnGongAn />
+           </div>
          </div>
          
-         {/* 站点描述 */}
-         <div className='text-center max-w-xl'>{siteConfig('DESCRIPTION')}</div>
-         
-         {/* 社交媒体按钮 */}
-         <SocialButton />
-         
-         {/* 版权信息 */}
-         <div className='flex items-center gap-x-1 mt-2'>
-           <i className='animate-pulse fas fa-heart text-red-500'></i>
-           <i className='fas fa-copyright mx-1'></i>
-           <span>{copyrightDate}</span>
-         </div>
-         
-         {/* 功能按钮和统计 */}
-         <div className='flex flex-wrap justify-center items-center gap-x-4 gap-y-2'>
-           <DarkModeButton />
-           <AnalyticsBusuanzi />
-         </div>
-         
-         {/* 备案信息 */}
-         <div className='flex flex-wrap justify-center items-center gap-x-2'>
-           <BeiAnSite />
-           <BeiAnGongAn />
+         {/* 右侧：社交媒体和统计 */}
+         <div className='flex flex-col items-end'>
+           {/* 社交媒体按钮 */}
+           <SocialButton />
+           
+           {/* 统计 */}
+           <div className='mt-2'>
+             <AnalyticsBusuanzi />
+           </div>
          </div>
        </div>
      </div>
