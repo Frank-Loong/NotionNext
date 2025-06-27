@@ -3,6 +3,7 @@ import { siteConfig } from '@/lib/config'
 import AnalyticsBusuanzi from '@/components/AnalyticsBusuanzi'
 import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import BeiAnSite from '@/components/BeiAnSite'
+import LazyImage from '@/components/LazyImage'
 import { useGlobal } from '@/lib/global'
 import SocialButton from './SocialButton'
 
