@@ -22,7 +22,7 @@ export const ArticleInfo = (props) => {
                                 alt={siteConfig('AUTHOR')}
                                 width={24}
                                 height={24}
-                                src={siteConfig('BLOG_FAVICON')}
+                                src="https://oss.frankloong.com/image/0bb1c8701f21d57711ce043e9de44056.jpg"
                                 className="rounded-full"
                             />
                             <p className="ml-2 md:block">{siteConfig('AUTHOR')}</p>

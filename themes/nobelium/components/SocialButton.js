@@ -16,7 +16,6 @@ const SocialButton = () => {
   const CONTACT_WEIBO = siteConfig('CONTACT_WEIBO')
   const CONTACT_INSTAGRAM = siteConfig('CONTACT_INSTAGRAM')
   const CONTACT_EMAIL = siteConfig('CONTACT_EMAIL')
-  const ENABLE_RSS = siteConfig('ENABLE_RSS')
   const CONTACT_BILIBILI = siteConfig('CONTACT_BILIBILI')
   const CONTACT_YOUTUBE = siteConfig('CONTACT_YOUTUBE')
 
@@ -95,15 +94,6 @@ const SocialButton = () => {
           title={'email'}
           href={`mailto:${CONTACT_EMAIL}`}>
           <i className='transform hover:scale-125 duration-150 fas fa-envelope hover:text-blue-500' />
-        </a>
-      )}
-      {ENABLE_RSS && (
-        <a
-          target='_blank'
-          rel='noreferrer'
-          title={'RSS'}
-          href={'/rss/feed.xml'}>
-          <i className='transform hover:scale-125 duration-150 fas fa-rss hover:text-blue-500' />
         </a>
       )}
       {CONTACT_BILIBILI && (
