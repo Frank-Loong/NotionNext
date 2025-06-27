@@ -161,42 +161,40 @@ const renderCollapseCode = (codeCollapse, codeCollapseExpandDefault) => {
  * 将mermaid语言 渲染成图片
  */
 const renderMermaid = mermaidCDN => {
-  const observer = new MutationObserver(mutationsList => {
-    for (const m of mutationsList) {
-      if (
-        m.target.classList && m.target.classList.contains('language-mermaid')
-      ) {
-        const chart = m.target.querySelector('code').textContent
-        if (chart && !m.target.querySelector('.mermaid')) {
-          const mermaidChart = document.createElement('pre')
-          mermaidChart.className = 'mermaid'
-          mermaidChart.innerHTML = chart
-          m.target.appendChild(mermaidChart)
-        }
-
-        const mermaidsSvg = document.querySelectorAll('.mermaid')
-        if (mermaidsSvg) {
-          let needLoad = false
-          for (const e of mermaidsSvg) {
-            if (e?.firstChild?.nodeName !== 'svg') {
-              needLoad = true
-            }
-          }
-          if (needLoad) {
-            loadExternalResource(mermaidCDN, 'js').then(url => {
-              setTimeout(() => {
-                const mermaid = window.mermaid
-                mermaid?.contentLoaded()
-              }, 100)
-            })
-          }
-        }
-      }
+  const insertMermaidSvg = () => {
+    const blocks = document.querySelectorAll('pre.notion-code.language-mermaid, pre.language-mermaid, div.notion-code')
+    blocks.forEach(m => {
+      if (m.querySelector('.mermaid')) return
+      const codeNode = m.querySelector('code')
+      if (!codeNode) return
+      const chart = codeNode.textContent
+      if (!chart) return
+      const mermaidChart = document.createElement('pre')
+      mermaidChart.className = 'mermaid'
+      mermaidChart.innerHTML = chart
+      m.appendChild(mermaidChart)
+    })
+    const mermaidsSvg = document.querySelectorAll('.mermaid')
+    if (mermaidsSvg.length > 0) {
+      loadExternalResource(mermaidCDN, 'js').then(() => {
+        setTimeout(() => {
+          window.mermaid?.contentLoaded()
+        }, 100)
+      })
     }
+  }
+
+  // 先处理已存在的mermaid代码块
+  insertMermaidSvg()
+
+  // 监听后续变化
+  const observer = new MutationObserver(() => {
+    insertMermaidSvg()
   })
   if (document.querySelector('#notion-article')) {
     observer.observe(document.querySelector('#notion-article'), {
       attributes: true,
+      childList: true,
       subtree: true
     })
   }
