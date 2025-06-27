@@ -1,4 +1,3 @@
-
 import Image from 'next/image'
 import TagItem from './TagItem'
 import md5 from 'js-md5'
@@ -7,8 +6,6 @@ import NotionIcon from '@/components/NotionIcon'
 
 export const ArticleInfo = (props) => {
   const { post } = props
-
-  const emailHash = md5(siteConfig('CONTACT_EMAIL', '#'))
 
   return <section className="flex-wrap flex mt-2 text-gray--600 dark:text-gray-400 font-light leading-8">
         <div>
@@ -25,7 +22,7 @@ export const ArticleInfo = (props) => {
                                 alt={siteConfig('AUTHOR')}
                                 width={24}
                                 height={24}
-                                src={`https://gravatar.com/avatar/${emailHash}`}
+                                src={siteConfig('BLOG_FAVICON')}
                                 className="rounded-full"
                             />
                             <p className="ml-2 md:block">{siteConfig('AUTHOR')}</p>
