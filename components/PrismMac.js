@@ -163,7 +163,9 @@ const renderCollapseCode = (codeCollapse, codeCollapseExpandDefault) => {
 const renderMermaid = mermaidCDN => {
   const observer = new MutationObserver(mutationsList => {
     for (const m of mutationsList) {
-      if (m.target.className === 'notion-code language-mermaid') {
+      if (
+        m.target.classList && m.target.classList.contains('language-mermaid')
+      ) {
         const chart = m.target.querySelector('code').textContent
         if (chart && !m.target.querySelector('.mermaid')) {
           const mermaidChart = document.createElement('pre')

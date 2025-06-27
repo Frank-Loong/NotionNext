@@ -73,7 +73,14 @@ const Catalog = ({ toc }) => {
                 <a
                   key={id}
                   href={`#${id}`}
-                  className={`${activeSection === id && 'dark:border-white border-gray-800 text-gray-800 font-bold'} hover:font-semibold border-l pl-4 block hover:text-gray-800 border-lduration-300 transform dark:text-gray-400 dark:border-gray-400
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const target = document.getElementById(id)
+                    if (target) {
+                      window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' })
+                    }
+                  }}
+                  className={`${activeSection === id && 'dark:border-white border-blue-500 text-blue-600 font-bold'} hover:font-semibold border-l pl-4 block hover:text-blue-600 border-lduration-300 transform dark:text-gray-400 dark:border-gray-400
               notion-table-of-contents-item-indent-level-${tocItem.indentLevel} catalog-item `}>
                   <span
                     style={{
