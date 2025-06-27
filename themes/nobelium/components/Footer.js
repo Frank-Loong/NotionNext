@@ -46,8 +46,8 @@ export const Footer = (props) => {
              </div>
            </div>
            
-           {/* 站点描述 */}
-           <div className='mt-2'>{siteConfig('DESCRIPTION')}</div>
+           {/* 站点描述 - 限制宽度 */}
+           <div className='mt-2 max-w-xs'>{siteConfig('DESCRIPTION')}</div>
            
            {/* 备案信息 */}
            <div className='flex flex-wrap items-center gap-x-2 mt-2'>
@@ -56,15 +56,15 @@ export const Footer = (props) => {
            </div>
          </div>
          
-         {/* 右侧：社交媒体和统计 */}
+         {/* 右侧：统计和社交媒体 - 调整顺序 */}
          <div className='flex flex-col items-end'>
-           {/* 社交媒体按钮 */}
-           <SocialButton />
-           
            {/* 统计 */}
-           <div className='mt-2'>
+           <div className='mb-2'>
              <AnalyticsBusuanzi />
            </div>
+           
+           {/* 社交媒体按钮 */}
+           <SocialButton />
          </div>
        </div>
      </div>
