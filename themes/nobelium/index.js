@@ -15,6 +15,7 @@ import Announcement from './components/Announcement'
 import { ArticleFooter } from './components/ArticleFooter'
 import { ArticleInfo } from './components/ArticleInfo'
 import { ArticleLock } from './components/ArticleLock'
+import ArticleCopyright from './components/ArticleCopyright'
 import BlogArchiveItem from './components/BlogArchiveItem'
 import BlogListBar from './components/BlogListBar'
 import { BlogListPage } from './components/BlogListPage'
@@ -222,6 +223,7 @@ const LayoutSlug = props => {
   const { post, lock, validPassword } = props
   const router = useRouter()
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  const url = siteConfig('LINK') + router.asPath
   useEffect(() => {
     // 404
     if (!post) {
@@ -251,6 +253,9 @@ const LayoutSlug = props => {
             <div id='article-wrapper'>
               <NotionPage post={post} />
             </div>
+            {post?.type === 'Post' && (
+              <ArticleCopyright author={siteConfig('AUTHOR')} url={url} />
+            )}
             <ShareBar post={post} />
             <Comment frontMatter={post} />
             <ArticleFooter />

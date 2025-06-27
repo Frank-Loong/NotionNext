@@ -13,6 +13,8 @@ const CONFIG = {
   NOBELIUM_MENU_SEARCH: true, // 显示搜索
   NOBELIUM_MENU_RSS: false, // 显示订阅
 
-  NOBELIUM_AUTO_COLLAPSE_NAV_BAR: true // 页头导航栏动画
+  NOBELIUM_AUTO_COLLAPSE_NAV_BAR: true, // 页头导航栏动画
+  
+  NOBELIUM_ARTICLE_COPYRIGHT: true // 是否显示文章底部版权声明
 }
 export default CONFIG
