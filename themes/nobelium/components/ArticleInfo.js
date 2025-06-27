@@ -18,7 +18,7 @@ export const ArticleInfo = (props) => {
                 <nav className="flex mt-7 items-start text-gray-500 dark:text-gray-400">
                     <div className="flex mb-4">
                         <a href={siteConfig('CONTACT_GITHUB', '#')} className="flex">
-                            <Image
+                            <img
                                 alt={siteConfig('AUTHOR')}
                                 width={24}
                                 height={24}
