@@ -38,8 +38,8 @@ export const BlogListPage = props => {
                 : `${pagePrefix}/page/${currentPage - 1}`,
             query: router.query.s ? { s: router.query.s } : {}
           }}
-          className={`${showPrev ? '  ' : ' invisible block pointer-events-none '}no-underline py-2 px-3 rounded`}>
-          <button rel='prev' className='block cursor-pointer'>
+          className={`${showPrev ? '  ' : ' invisible block pointer-events-none '}no-underline py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-800`}>
+          <button rel='prev' className='block cursor-pointer hover:text-black dark:hover:text-white'>
             ← {locale.PAGINATION.PREV}
           </button>
         </Link>
@@ -48,8 +48,8 @@ export const BlogListPage = props => {
             pathname: `${pagePrefix}/page/${currentPage + 1}`,
             query: router.query.s ? { s: router.query.s } : {}
           }}
-          className={`${showNext ? '  ' : 'invisible pointer-events-none '}  no-underline py-2 px-3 rounded`}>
-          <button rel='next' className='block cursor-pointer'>
+          className={`${showNext ? '  ' : 'invisible pointer-events-none '}  no-underline py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-800`}>
+          <button rel='next' className='block cursor-pointer hover:text-black dark:hover:text-white'>
             {locale.PAGINATION.NEXT} →
           </button>
         </Link>

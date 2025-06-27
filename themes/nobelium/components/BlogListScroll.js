@@ -71,12 +71,12 @@ export const BlogListScroll = props => {
 
           <div className='mb-4 text-sm text-gray-700'>
             by{' '}
-            <a href='#' className='text-gray-700'>
+            <a href='#' className='text-gray-700 hover:text-black hover:underline transition-colors'>
               {siteConfig('AUTHOR')}
             </a>{' '}
             on {p.date?.start_date || p.createdTime}
             <span className='font-bold mx-1'> | </span>
-            <a href='#' className='text-gray-700'>
+            <a href='#' className='text-gray-700 hover:text-black hover:underline transition-colors'>
               {p.category}
             </a>
             <span className='font-bold mx-1'> | </span>
@@ -89,7 +89,7 @@ export const BlogListScroll = props => {
 
       <div
         onClick={handleGetMore}
-        className='w-full my-4 py-4 text-center cursor-pointer '>
+        className='w-full my-4 py-4 text-center cursor-pointer hover:text-black dark:hover:text-white transition-colors'>
         {' '}
         {hasMore ? locale.COMMON.MORE : `${locale.COMMON.NO_MORE} 😰`}{' '}
       </div>
