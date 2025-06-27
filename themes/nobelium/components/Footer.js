@@ -3,10 +3,8 @@ import { siteConfig } from '@/lib/config'
 import AnalyticsBusuanzi from '@/components/AnalyticsBusuanzi'
 import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import BeiAnSite from '@/components/BeiAnSite'
-import LazyImage from '@/components/LazyImage'
-import PoweredBy from '@/components/PoweredBy'
 import { useGlobal } from '@/lib/global'
-import Link from 'next/link'
+import SocialButton from './SocialButton'
 
 export const Footer = (props) => {
   const d = new Date()
@@ -16,7 +14,6 @@ export const Footer = (props) => {
   const since = siteConfig('SINCE')
   const copyrightDate = parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
   const { siteInfo } = useGlobal()
-  const NOBELIUM_FOOTER_LINKS = siteConfig('NOBELIUM_FOOTER_LINKS', [])
 
   return <footer
      className={`z-10 relative mt-6 flex-shrink-0 m-auto w-full text-gray-500 dark:text-gray-400 transition-all ${
@@ -34,23 +31,22 @@ export const Footer = (props) => {
                src={siteInfo.icon}
                className='rounded-full'
                width={24}
-               alt={siteConfig('AUTHOR')}
+               alt={siteConfig('TITLE')}
              />
            )}
-           <span className='font-bold'>{siteConfig('AUTHOR')}</span>
+           <span className='font-bold'>{siteConfig('TITLE')}</span>
          </div>
          <div className='px-1'>{siteConfig('DESCRIPTION')}</div>
-         {siteConfig('CONTACT_EMAIL') && (
-           <div className='px-1'>{siteConfig('CONTACT_EMAIL')}</div>
-         )}
+         
+         {/* 社交媒体按钮 */}
+         <SocialButton />
        </div>
      </div>
      
      {/* 页脚底部信息 */}
      <div className='py-4 flex flex-col md:flex-row justify-between items-center border-t border-gray-200 dark:border-gray-600'>
        <div className='flex gap-x-2 flex-wrap justify-between items-center'>
-         <span>© {siteConfig('AUTHOR')} {copyrightDate}</span>
-         <PoweredBy />
+         <span><i className='mx-1 animate-pulse fas fa-heart'></i> {siteConfig('AUTHOR')} <i className='fas fa-copyright mr-1'></i> {copyrightDate}</span>
        </div>
 
        <DarkModeButton className='my-4 md:my-0'/>
