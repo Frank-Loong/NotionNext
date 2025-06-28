@@ -24,8 +24,9 @@ const MobileCatalog = ({ toc }) => {
     
     // 添加点击外部关闭抽屉的事件
     const handleClickOutside = (event) => {
-      if (drawerRef.current && !drawerRef.current.contains(event.target) && 
-          !event.target.classList.contains('catalog-toggle-btn')) {
+      const isInsideDrawer = drawerRef.current && drawerRef.current.contains(event.target)
+      const isToggleBtn = event.target.closest('.catalog-toggle-btn')
+      if (!isInsideDrawer && !isToggleBtn) {
         setShowDrawer(false)
       }
     }
@@ -79,7 +80,7 @@ const MobileCatalog = ({ toc }) => {
     <>
       {/* 移动端目录按钮 - 固定在右下角，与返回顶部按钮形成统一风格 */}
       <div 
-        className='lg:hidden fixed right-4 bottom-16 z-50 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-md flex items-center justify-center backdrop-blur-sm catalog-toggle-btn'
+        className='lg:hidden fixed right-4 bottom-24 z-50 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-md flex items-center justify-center backdrop-blur-sm catalog-toggle-btn'
         onClick={toggleDrawer}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
