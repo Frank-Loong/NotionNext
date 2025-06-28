@@ -21,6 +21,7 @@ import BlogListBar from './components/BlogListBar'
 import { BlogListPage } from './components/BlogListPage'
 import { BlogListScroll } from './components/BlogListScroll'
 import Catalog from './components/Catalog'
+import MobileCatalog from './components/MobileCatalog'
 import { Footer } from './components/Footer'
 import JumpToTopButton from './components/JumpToTopButton'
 import Nav from './components/Nav'
@@ -260,6 +261,7 @@ const LayoutSlug = props => {
             <ShareBar post={post} />
             <Comment frontMatter={post} />
             <ArticleFooter />
+            <MobileCatalog toc={post?.toc} />
           </>
         </div>
       )}
