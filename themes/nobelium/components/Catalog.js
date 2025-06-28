@@ -60,7 +60,7 @@ const Catalog = ({ toc }) => {
   }
 
   return (
-    <div className='hidden lg:block absolute right-0 top-0 -mr-96 h-full'>
+    <div className='hidden xl:block absolute right-0 top-0 -mr-96 h-full'>
       <div className='px-3 sticky top-32'>
         <div
           className='pl-10 mt-32 overflow-y-auto max-w-96  max-h-96 overscroll-none scroll-hidden'
