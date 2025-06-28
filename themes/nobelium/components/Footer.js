@@ -24,11 +24,11 @@ export const Footer = (props) => {
      
      {/* 页脚内容 */}
      <div className='w-full py-6'>
-       <div className='flex justify-between items-start'>
+       <div className='flex flex-col md:flex-row md:justify-between md:items-start gap-y-4'>
          {/* 左侧：站点信息和版权 */}
          <div className='flex flex-col'>
            {/* 站点信息 */}
-           <div className='flex items-center gap-x-2'>
+           <div className='flex flex-wrap items-center gap-x-2'>
              {siteInfo?.icon && (
                <LazyImage
                  src={siteInfo.icon}
@@ -55,8 +55,8 @@ export const Footer = (props) => {
            </div>
          </div>
          
-         {/* 右侧：统计和社交媒体 - 调整顺序 */}
-         <div className='flex flex-col items-end'>
+         {/* 右侧：统计和社交媒体 */}
+         <div className='flex flex-col items-start md:items-end'>
            {/* 统计 */}
            <div className='mb-2'>
              <AnalyticsBusuanzi />
