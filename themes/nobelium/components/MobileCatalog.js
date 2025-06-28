@@ -77,13 +77,13 @@ const MobileCatalog = ({ toc }) => {
 
   return (
     <>
-      {/* 移动端目录按钮 - 固定在右下角 */}
+      {/* 移动端目录按钮 - 固定在右下角，与返回顶部按钮形成统一风格 */}
       <div 
-        className='lg:hidden fixed right-4 bottom-16 z-40 rounded-full bg-white dark:bg-gray-800 shadow-md p-3 catalog-toggle-btn'
+        className='lg:hidden fixed right-4 bottom-16 z-50 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-md flex items-center justify-center backdrop-blur-sm catalog-toggle-btn'
         onClick={toggleDrawer}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h14" />
         </svg>
       </div>
       
@@ -92,27 +92,27 @@ const MobileCatalog = ({ toc }) => {
         className={`lg:hidden fixed inset-0 z-50 transition-all duration-300 ${showDrawer ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       >
         {/* 遮罩层 */}
-        <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setShowDrawer(false)}></div>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowDrawer(false)}></div>
         
-        {/* 抽屉内容 */}
+        {/* 抽屉内容 - 更现代化的设计 */}
         <div 
           ref={drawerRef}
-          className={`absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 rounded-t-xl shadow-xl transform transition-transform duration-300 max-h-[70vh] overflow-y-auto mobile-catalog-drawer ${showDrawer ? 'translate-y-0' : 'translate-y-full'}`}
+          className={`absolute bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-t-2xl shadow-xl transform transition-transform duration-300 max-h-[70vh] overflow-y-auto mobile-catalog-drawer ${showDrawer ? 'translate-y-0' : 'translate-y-full'}`}
         >
-          {/* 抽屉头部 */}
-          <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-            <h3 className="text-lg font-semibold dark:text-gray-100">
+          {/* 抽屉头部 - 更简洁的设计 */}
+          <div className="flex items-center justify-between p-4 border-b dark:border-gray-700/50">
+            <h3 className="font-medium text-gray-800 dark:text-gray-100">
               {locale.COMMON.TABLE_OF_CONTENTS || '目录'}
             </h3>
-            <button onClick={() => setShowDrawer(false)} className="p-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <button onClick={() => setShowDrawer(false)} className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
           
-          {/* 目录内容 */}
-          <nav className="p-4 text-black dark:text-gray-300">
+          {/* 目录内容 - 更现代简约的设计 */}
+          <nav className="py-3 px-2 text-gray-800 dark:text-gray-300">
             {toc?.map(tocItem => {
               const id = uuidToId(tocItem.id)
               tocIds.push(id)
@@ -121,23 +121,22 @@ const MobileCatalog = ({ toc }) => {
                   key={id}
                   href={`#${id}`}
                   onClick={() => setShowDrawer(false)}
-                  className={`${activeSection === id ? 'text-blue-500 dark:text-blue-400 font-medium' : ''} 
-                    block py-2 border-l-4 px-3 mb-1
-                    ${activeSection === id ? 'border-blue-500 dark:border-blue-400' : 'border-transparent'}
-                    hover:bg-gray-100 dark:hover:bg-gray-800 rounded-r
+                  className={`
+                    flex items-center py-2 px-3 mb-0.5 rounded-lg
+                    ${activeSection === id 
+                      ? 'bg-gray-100 dark:bg-gray-800/70 text-blue-600 dark:text-blue-400' 
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}
                     transition-colors duration-200`}
-                  style={{ paddingLeft: `${tocItem.indentLevel * 16 + 12}px` }}
+                  style={{ marginLeft: `${tocItem.indentLevel * 12}px` }}
                 >
-                  <span className={`truncate ${activeSection === id ? 'font-medium' : ''}`}>
-                    {tocItem.text}
-                  </span>
+                  <span className="truncate">{tocItem.text}</span>
                 </a>
               )
             })}
           </nav>
           
           {/* 底部填充 */}
-          <div className="h-6"></div>
+          <div className="h-safe-area-bottom pb-6"></div>
         </div>
       </div>
     </>

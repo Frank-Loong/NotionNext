@@ -7,13 +7,14 @@
 const Style = () => {
   return (
     <style jsx global>{`
-      /* 移动端目录按钮样式 */
+      /* 移动端悬浮控制按钮共享样式 */
       .catalog-toggle-btn {
         transition: all 0.2s ease-in-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       }
       
       .catalog-toggle-btn:active {
-        transform: scale(0.95);
+        transform: scale(0.92);
       }
       
       /* 移动端目录抽屉样式优化 */
@@ -23,28 +24,32 @@ const Style = () => {
           padding-bottom: 70px;
         }
         
-        /* 优化滚动条样式 */
+        /* 统一的悬浮按钮动画效果 */
         .mobile-catalog-drawer {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+          scrollbar-width: none;
         }
         
         .mobile-catalog-drawer::-webkit-scrollbar {
-          width: 4px;
+          display: none;
         }
         
-        .mobile-catalog-drawer::-webkit-scrollbar-track {
-          background: transparent;
+        /* 安全区域适配 */
+        .h-safe-area-bottom {
+          height: env(safe-area-inset-bottom, 0);
         }
         
-        .mobile-catalog-drawer::-webkit-scrollbar-thumb {
-          background-color: rgba(0, 0, 0, 0.2);
-          border-radius: 2px;
+        /* 悬浮按钮组样式 */
+        .float-btn-group > div {
+          margin-bottom: 0.75rem;
+          transform: translateZ(0);
+          will-change: transform;
         }
-        
-        .dark .mobile-catalog-drawer::-webkit-scrollbar-thumb {
-          background-color: rgba(255, 255, 255, 0.2);
-        }
+      }
+      
+      /* 优化暗黑模式下的按钮外观 */
+      .dark .catalog-toggle-btn,
+      .dark #jump-to-top {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
     `}</style>
   )

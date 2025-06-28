@@ -89,8 +89,8 @@ const LayoutBase = props => {
         {/* 页脚 */}
         <Footer {...props} />
 
-        {/* 右下悬浮 */}
-        <div className='fixed right-4 bottom-4'>
+        {/* 右下悬浮按钮组 */}
+        <div className='fixed right-4 bottom-4 z-50 float-btn-group'>
           <JumpToTopButton />
         </div>
 
