@@ -52,6 +52,54 @@ const LayoutBase = props => {
   // 在列表中进行实时过滤
   const [filterKey, setFilterKey] = useState('')
   const topSlot = <BlogListBar {...props} />
+  
+  // 增强日夜间模式切换功能
+  useEffect(() => {
+    // 确保darkModeButton总是可点击
+    const makeDarkModeButtonClickable = () => {
+      const darkModeButton = document.getElementById('darkModeButton')
+      if (darkModeButton) {
+        darkModeButton.classList.add('dark-mode-button')
+        
+        // 修复Twikoo评论区代码块的样式问题
+        const fixTwikooCodeBlocks = () => {
+          const expandBtns = document.querySelectorAll('.tk-expand')
+          expandBtns.forEach(btn => {
+            btn.style.display = 'none'
+          })
+          
+          const codeBlocks = document.querySelectorAll('.tk-content pre')
+          codeBlocks.forEach(block => {
+            block.style.maxHeight = 'none'
+            block.style.overflow = 'auto'
+          })
+        }
+        
+        // 初始修复
+        fixTwikooCodeBlocks()
+        
+        // 监听主题变化
+        const observer = new MutationObserver(() => {
+          setTimeout(fixTwikooCodeBlocks, 300)
+        })
+        
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class']
+        })
+        
+        return () => observer.disconnect()
+      }
+    }
+    
+    // 在DOM加载完成后执行
+    if (document.readyState === 'complete') {
+      makeDarkModeButtonClickable()
+    } else {
+      window.addEventListener('load', makeDarkModeButtonClickable)
+      return () => window.removeEventListener('load', makeDarkModeButtonClickable)
+    }
+  }, [])
 
   return (
     <ThemeGlobalNobelium.Provider
