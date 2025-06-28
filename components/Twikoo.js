@@ -1,41 +1,20 @@
 import { siteConfig } from '@/lib/config'
 import { loadExternalResource } from '@/lib/utils'
-import { useEffect, useRef } from 'react'
-import { useGlobal } from '@/lib/global'
+import { useEffect, useRef, useState } from 'react'
 
 /**
- * Twikoo评论
+ * Giscus评论 @see https://giscus.app/zh-CN
+ * Contribute by @txs https://github.com/txs/NotionNext/commit/1bf7179d0af21fb433e4c7773504f244998678cb
  * @returns {JSX.Element}
  * @constructor
  */
-const Twikoo = () => {
+
+const Twikoo = ({ isDarkMode }) => {
   const envId = siteConfig('COMMENT_TWIKOO_ENV_ID')
   const el = siteConfig('COMMENT_TWIKOO_ELEMENT_ID', '#twikoo')
   const twikooCDNURL = siteConfig('COMMENT_TWIKOO_CDN_URL')
   const lang = siteConfig('LANG')
-  const twikooInitRef = useRef(false)
-  const { isDarkMode } = useGlobal()
-  
-  // 处理日夜间模式切换时的代码高亮问题
-  useEffect(() => {
-    // 当主题模式变化时，如果twikoo已初始化，处理代码高亮
-    if (twikooInitRef.current) {
-      setTimeout(() => {
-        // 隐藏展开箭头
-        const expandBtns = document.querySelectorAll('.tk-expand');
-        expandBtns.forEach(btn => {
-          btn.style.display = 'none';
-        });
-        
-        // 确保代码块正确显示
-        const codeBlocks = document.querySelectorAll('.tk-content pre');
-        codeBlocks.forEach(block => {
-          block.style.maxHeight = 'none';
-          block.style.overflow = 'auto';
-        });
-      }, 300);
-    }
-  }, [isDarkMode]);
+  const [isInit] = useState(useRef(false))
 
   const loadTwikoo = async () => {
     try {
@@ -53,25 +32,8 @@ const Twikoo = () => {
           // region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
           // path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
         })
-        
-        // 标记为已初始化
-        twikooInitRef.current = true;
-        
-        // 初始化后处理代码块
-        setTimeout(() => {
-          // 隐藏展开箭头
-          const expandBtns = document.querySelectorAll('.tk-expand');
-          expandBtns.forEach(btn => {
-            btn.style.display = 'none';
-          });
-          
-          // 确保代码块正确显示
-          const codeBlocks = document.querySelectorAll('.tk-content pre');
-          codeBlocks.forEach(block => {
-            block.style.maxHeight = 'none';
-            block.style.overflow = 'auto';
-          });
-        }, 500);
+        console.log('twikoo init', twikoo)
+        isInit.current = true
       }
     } catch (error) {
       console.error('twikoo 加载失败', error)
@@ -79,22 +41,27 @@ const Twikoo = () => {
   }
 
   useEffect(() => {
-    // 使用更可靠的方法初始化Twikoo
-    if (!twikooInitRef.current) {
+    // 如果已初始化，并且主题变化，则尝试重新渲染
+    if (isInit.current) {
+      const container = document.querySelector(el)
+      if (container) {
+        container.innerHTML = ''
+      }
+      isInit.current = false
       loadTwikoo()
-      
-      // 设置一个备用计时器，确保初始化成功
-      const backupTimer = setTimeout(() => {
-        if (!twikooInitRef.current) {
-          loadTwikoo()
-        }
-      }, 3000)
-      
-      return () => clearTimeout(backupTimer)
+      return // 已重新加载，后续不需要启动轮询计时器
     }
-  }, [])
-  
-  return <div id="twikoo" className="twikoo-container"></div>
+
+    const interval = setInterval(() => {
+      if (isInit.current) {
+        clearInterval(interval)
+      } else {
+        loadTwikoo()
+      }
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [isDarkMode])
+  return <div id="twikoo"></div>
 }
 
 export default Twikoo

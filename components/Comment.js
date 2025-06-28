@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import Artalk from './Artalk'
+import { useGlobal } from '@/lib/global'
 
 /**
  * 评论组件
@@ -14,6 +15,7 @@ import Artalk from './Artalk'
  */
 const Comment = ({ frontMatter, className }) => {
   const router = useRouter()
+  const { isDarkMode } = useGlobal()
   const [shouldLoad, setShouldLoad] = useState(false)
   const commentRef = useRef(null)
 
@@ -100,7 +102,7 @@ const Comment = ({ frontMatter, className }) => {
 
           {COMMENT_TWIKOO_ENV_ID && (
             <div key='Twikoo'>
-              <TwikooCompenent />
+              <TwikooCompenent isDarkMode={isDarkMode} />
             </div>
           )}
 
