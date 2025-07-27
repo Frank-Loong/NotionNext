@@ -2,7 +2,7 @@ import NotionIcon from '@/components/NotionIcon'
 import NotionPage from '@/components/NotionPage'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import Link from 'next/link'
+import SmartLink from '@/components/SmartLink'
 
 const BlogPost = ({ post }) => {
   const { NOTION_CONFIG } = useGlobal()
@@ -10,10 +10,10 @@ const BlogPost = ({ post }) => {
     siteConfig('POST_LIST_PREVIEW', false, NOTION_CONFIG) && post?.blockMap
 
   return (
-    <Link href={post?.href}>
-      <article key={post.id} className="mb-6 md:mb-8 group">
-        <header className="flex flex-col justify-between md:flex-row md:items-baseline">
-          <h2 className="text-lg md:text-xl font-medium mb-2 cursor-pointer text-black dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-transform duration-200 group-hover:scale-105">
+    <SmartLink href={post?.href}>
+      <article key={post.id} className='mb-6 md:mb-8'>
+        <header className='flex flex-col justify-between md:flex-row md:items-baseline'>
+          <h2 className='text-lg md:text-xl font-medium mb-2 cursor-pointer text-black dark:text-gray-100'>
             {siteConfig('POST_TITLE_ICON') && (
               <NotionIcon icon={post.pageIcon} />
             )}
@@ -37,7 +37,7 @@ const BlogPost = ({ post }) => {
           )}
         </main>
       </article>
-    </Link>
+    </SmartLink>
   )
 }
 

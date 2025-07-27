@@ -1,5 +1,5 @@
 import Collapse from '@/components/Collapse'
-import Link from 'next/link'
+import SmartLink from '@/components/SmartLink'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -35,7 +35,7 @@ export const MenuItemCollapse = props => {
         className='w-full px-4 py-2 text-left dark:bg-hexo-black-gray dark:border-black'
         onClick={toggleShow}>
         {!hasSubMenu && (
-          <Link
+          <SmartLink
             href={link?.href}
             target={link?.target}
             className={`font-extralight  flex justify-between pl-2 pr-4 no-underline tracking-widest pb-1 transition-all duration-200 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'dark:text-gray-200'} hover:text-blue-600 dark:hover:text-blue-400 hover:scale-105`}>
@@ -47,7 +47,7 @@ export const MenuItemCollapse = props => {
               )}
               {link?.name}
             </span>
-          </Link>
+          </SmartLink>
         )}
         {hasSubMenu && (
           <div
@@ -74,10 +74,10 @@ export const MenuItemCollapse = props => {
             return (
               <div
                 key={index}
-                className={`font-extralight dark:bg-black text-left px-10 justify-start hover:bg-blue-100 dark:hover:bg-blue-800 tracking-widest transition-all duration-200 border-b dark:border-gray-800 py-3 pr-6 ${activeSub ? 'text-blue-600 dark:text-blue-400 font-medium' : ''}`}>
-                <Link href={sLink.href} target={link?.target}>
+                className='font-extralight dark:bg-black text-left px-10 justify-start  bg-gray-50 hover:bg-gray-50 dark:hover:bg-gray-900 tracking-widest transition-all duration-200 border-b dark:border-gray-800 py-3 pr-6'>
+                <SmartLink href={sLink.href} target={link?.target}>
                   <span className='text-xs'>{sLink.title}</span>
-                </Link>
+                </SmartLink>
               </div>
             )
           })}

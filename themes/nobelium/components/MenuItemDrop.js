@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import SmartLink from '@/components/SmartLink'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -19,10 +19,10 @@ export const MenuItemDrop = ({ link }) => {
         onMouseOver={() => changeShow(true)}
         onMouseOut={() => changeShow(false)}>
         {!hasSubMenu && (
-          <div className={`block nav transition-all duration-200 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-black dark:text-gray-50'} group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:scale-105`}>
-            <Link href={link?.href} target={link?.target}>
+          <div className='block text-black dark:text-gray-50 nav'>
+            <SmartLink href={link?.href} target={link?.target}>
               {link?.icon && <i className={link?.icon} />} {link?.name}
-            </Link>
+            </SmartLink>
           </div>
         )}
 
@@ -43,13 +43,13 @@ export const MenuItemDrop = ({ link }) => {
               return (
                 <div
                   key={index}
-                  className={`border-b text-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-800 transition-all duration-200  dark:border-gray-800 py-3 pr-6 pl-3 ${activeSub ? 'text-blue-600 dark:text-blue-400 font-medium' : ''}`}>
-                  <Link href={sLink.href} target={link?.target}>
+                  className='not:last-child:border-b-0 border-b text-gray-700 dark:text-gray-200  hover:bg-gray-50 dark:hover:bg-gray-900 tracking-widest transition-all duration-200  dark:border-gray-800 py-3 pr-6 pl-3'>
+                  <SmartLink href={sLink.href} target={link?.target}>
                     <span className='text-sm text-nowrap font-extralight'>
                       {link?.icon && <i className={sLink?.icon}> &nbsp; </i>}
                       {sLink.title}
                     </span>
-                  </Link>
+                  </SmartLink>
                 </div>
               )
             })}
