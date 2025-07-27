@@ -1,6 +1,7 @@
 import Collapse from '@/components/Collapse'
 import SmartLink from '@/components/SmartLink'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 /**
  * 折叠菜单
@@ -11,8 +12,8 @@ export const MenuItemCollapse = props => {
   const { link } = props
   const [show, changeShow] = useState(false)
   const hasSubMenu = link?.subMenus?.length > 0
-
   const [isOpen, changeIsOpen] = useState(false)
+  const router = useRouter()
 
   const toggleShow = () => {
     changeShow(!show)
@@ -26,6 +27,8 @@ export const MenuItemCollapse = props => {
     return null
   }
 
+  const isActive = router.asPath === link.href || router.asPath.startsWith(link.href + '/')
+
   return (
     <>
       <div
@@ -35,8 +38,8 @@ export const MenuItemCollapse = props => {
           <SmartLink
             href={link?.href}
             target={link?.target}
-            className='font-extralight  flex justify-between pl-2 pr-4 dark:text-gray-200 no-underline tracking-widest pb-1'>
-            <span className=' hover:text-red-400 transition-all items-center duration-200'>
+            className={`font-extralight  flex justify-between pl-2 pr-4 no-underline tracking-widest pb-1 transition-all duration-200 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'dark:text-gray-200'} hover:text-blue-600 dark:hover:text-blue-400 hover:scale-105`}>
+            <span className='items-center'>
               {link?.icon && (
                 <span className='mr-2'>
                   <i className={link.icon} />
@@ -49,8 +52,8 @@ export const MenuItemCollapse = props => {
         {hasSubMenu && (
           <div
             onClick={hasSubMenu ? toggleOpenSubMenu : null}
-            className='font-extralight flex justify-between pl-2 pr-4 cursor-pointer  dark:text-gray-200 no-underline tracking-widest pb-1'>
-            <span className=' hover:text-red-400 transition-all items-center duration-200'>
+            className={`font-extralight flex justify-between pl-2 pr-4 cursor-pointer tracking-widest pb-1 transition-all duration-200 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'dark:text-gray-200'} hover:text-blue-600 dark:hover:text-blue-400 hover:scale-105`}>
+            <span className='items-center'>
               {link?.icon && (
                 <span className='mr-2'>
                   <i className={link.icon} />
@@ -67,6 +70,7 @@ export const MenuItemCollapse = props => {
       {hasSubMenu && (
         <Collapse isOpen={isOpen} onHeightChange={props.onHeightChange}>
           {link.subMenus.map((sLink, index) => {
+            const activeSub = router.asPath === sLink.href
             return (
               <div
                 key={index}
