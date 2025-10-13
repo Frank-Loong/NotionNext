@@ -41,9 +41,19 @@ const Twikoo = ({ isDarkMode }) => {
   }
 
   useEffect(() => {
+    // 如果已初始化，并且主题变化，则尝试重新渲染
+    if (isInit.current) {
+      const container = document.querySelector(el)
+      if (container) {
+        container.innerHTML = ''
+      }
+      isInit.current = false
+      loadTwikoo()
+      return // 已重新加载，后续不需要启动轮询计时器
+    }
+
     const interval = setInterval(() => {
       if (isInit.current) {
-        console.log('twioo init! clear interval')
         clearInterval(interval)
       } else {
         loadTwikoo()
