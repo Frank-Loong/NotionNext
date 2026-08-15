@@ -30,7 +30,7 @@ export const MenuItemDrop = ({ link }) => {
           <div className={`block nav transition-all duration-200 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-black dark:text-gray-50'} group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:scale-105`}>
             {link?.icon && <i className={link?.icon} />} {link?.name}
             <i
-              className={`px-2 fas fa-chevron-down duration-500 transition-all ${show ? ' rotate-180' : ''}`}></i>
+              className={`ml-2 fas fa-chevron-down duration-500 transition-all ${show ? ' rotate-180' : ''}`}></i>
           </div>
         )}
 
