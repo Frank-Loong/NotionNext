@@ -60,7 +60,7 @@ const Catalog = ({ toc }) => {
   }
 
   return (
-    <div className='hidden lg:block absolute right-0 top-0 -mr-96 h-full'>
+    <div className='hidden xl:block absolute right-0 top-0 -mr-96 h-full'>
       <div className='px-3 sticky top-32'>
         <div
           className='pl-10 mt-32 overflow-y-auto max-w-96  max-h-96 overscroll-none scroll-hidden'
@@ -73,7 +73,7 @@ const Catalog = ({ toc }) => {
                 <a
                   key={id}
                   href={`#${id}`}
-                  className={`${activeSection === id && 'dark:border-white border-gray-800 text-gray-800 font-bold'} hover:font-semibold border-l pl-4 block hover:text-gray-800 border-lduration-300 transform dark:text-gray-400 dark:border-gray-400
+                  className={`${activeSection === id && 'dark:border-white border-blue-500 text-blue-600 font-bold'} hover:font-semibold border-l pl-4 block hover:text-blue-600 border-lduration-300 transform dark:text-gray-400 dark:border-gray-400
               notion-table-of-contents-item-indent-level-${tocItem.indentLevel} catalog-item `}>
                   <span
                     style={{

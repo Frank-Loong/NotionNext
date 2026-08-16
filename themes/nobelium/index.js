@@ -15,17 +15,20 @@ import Announcement from './components/Announcement'
 import { ArticleFooter } from './components/ArticleFooter'
 import { ArticleInfo } from './components/ArticleInfo'
 import { ArticleLock } from './components/ArticleLock'
+import ArticleCopyright from './components/ArticleCopyright'
 import BlogArchiveItem from './components/BlogArchiveItem'
 import BlogListBar from './components/BlogListBar'
 import { BlogListPage } from './components/BlogListPage'
 import { BlogListScroll } from './components/BlogListScroll'
 import Catalog from './components/Catalog'
+import MobileCatalog from './components/MobileCatalog'
 import { Footer } from './components/Footer'
 import JumpToTopButton from './components/JumpToTopButton'
 import Nav from './components/Nav'
 import SearchNavBar from './components/SearchNavBar'
 import CONFIG from './config'
 import { Style } from './style'
+import WordCount from './components/WordCount'
 
 const AlgoliaSearchModal = dynamic(
   () => import('@/components/AlgoliaSearchModal'),
@@ -56,7 +59,7 @@ const LayoutBase = props => {
       value={{ searchModal, filterKey, setFilterKey }}>
       <div
         id='theme-nobelium'
-        className={`${siteConfig('FONT_STYLE')} nobelium relative dark:text-gray-300  w-full  bg-white dark:bg-black min-h-screen flex flex-col scroll-smooth`}>
+        className={`${siteConfig('FONT_STYLE')} nobelium relative dark:text-gray-300  w-full  bg-[#FAF8F2] dark:bg-[#1F1F1F] min-h-screen flex flex-col scroll-smooth`}>
         <Style />
 
         {/* 顶部导航栏 */}
@@ -86,8 +89,8 @@ const LayoutBase = props => {
         {/* 页脚 */}
         <Footer {...props} />
 
-        {/* 右下悬浮 */}
-        <div className='fixed right-4 bottom-4'>
+        {/* 右下悬浮按钮组 */}
+        <div className='fixed right-4 bottom-4 z-50 float-btn-group'>
           <JumpToTopButton />
         </div>
 
@@ -222,6 +225,7 @@ const LayoutSlug = props => {
   const { post, lock, validPassword } = props
   const router = useRouter()
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  const url = siteConfig('LINK') + router.asPath
   useEffect(() => {
     // 404
     if (!post) {
@@ -251,9 +255,13 @@ const LayoutSlug = props => {
             <div id='article-wrapper'>
               <NotionPage post={post} />
             </div>
+            {post?.type === 'Post' && (
+              <ArticleCopyright author={siteConfig('AUTHOR')} url={url} />
+            )}
             <ShareBar post={post} />
             <Comment frontMatter={post} />
             <ArticleFooter />
+            <MobileCatalog toc={post?.toc} />
           </>
         </div>
       )}

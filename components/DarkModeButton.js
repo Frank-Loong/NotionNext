@@ -26,8 +26,7 @@ const DarkModeButton = props => {
       <div
         onClick={toggleDarkMode}
         id='darkModeButton'
-        className=' hover:scale-110 cursor-pointer transform duration-200 w-5 h-5'>
-        {' '}
+        className='hover:scale-110 cursor-pointer transform duration-200 w-5 h-5'>
         {isDarkMode ? <Sun /> : <Moon />}
       </div>
     </div>

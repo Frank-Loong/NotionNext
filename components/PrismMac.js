@@ -609,33 +609,16 @@ export const renderCollapseCode = (codeCollapse, codeCollapseExpandDefault) => {
  * 将mermaid语言 渲染成图片
  */
 const renderMermaid = mermaidCDN => {
-  const articles = getNotionArticles()
-  if (!articles || articles.length === 0) return () => {}
+  let mermaidLoader = null
 
-  let hasMermaidBlocks = false
-
-  for (const article of articles) {
-    const mermaidCodeBlocks = article.querySelectorAll(
-      '.notion-code.language-mermaid'
-    )
-    for (const codeBlock of mermaidCodeBlocks) {
-      const chart = codeBlock.querySelector('code')?.textContent
-      if (!chart) continue
-      hasMermaidBlocks = true
-      let mermaidChart = codeBlock.querySelector('.mermaid')
-      if (!mermaidChart) {
-        mermaidChart = document.createElement('pre')
-        mermaidChart.className = 'mermaid'
-        mermaidChart.textContent = chart
-        codeBlock.appendChild(mermaidChart)
-      }
+  const loadAndRender = () => {
+    if (!mermaidLoader) {
+      mermaidLoader = loadExternalResource(mermaidCDN, 'js').catch(err => {
+        mermaidLoader = null
+        throw err
+      })
     }
-  }
-
-  if (!hasMermaidBlocks) return () => {}
-
-  loadExternalResource(mermaidCDN, 'js')
-    .then(() => {
+    return mermaidLoader.then(() => {
       setTimeout(() => {
         try {
           const mermaid = window.mermaid
@@ -646,11 +629,56 @@ const renderMermaid = mermaidCDN => {
         }
       }, 60)
     })
-    .catch(err => {
+  }
+
+  const insertMermaidSvg = () => {
+    const articles = getNotionArticles()
+    if (!articles || articles.length === 0) return false
+
+    let hasMermaidBlocks = false
+    for (const article of articles) {
+      const mermaidCodeBlocks = article.querySelectorAll(
+        '.notion-code.language-mermaid'
+      )
+      for (const codeBlock of mermaidCodeBlocks) {
+        const chart = codeBlock.querySelector('code')?.textContent
+        if (!chart) continue
+        hasMermaidBlocks = true
+        let mermaidChart = codeBlock.querySelector('.mermaid')
+        if (!mermaidChart) {
+          mermaidChart = document.createElement('pre')
+          mermaidChart.className = 'mermaid'
+          mermaidChart.textContent = chart
+          codeBlock.appendChild(mermaidChart)
+        }
+      }
+    }
+    if (!hasMermaidBlocks) return false
+
+    loadAndRender().catch(err => {
       console.warn('[PrismMac] mermaid load failed:', err)
     })
+    return true
+  }
 
-  return () => {}
+  insertMermaidSvg()
+
+  const article = getNotionArticle()
+  if (!article || typeof MutationObserver === 'undefined') return () => {}
+
+  const observer = new MutationObserver(() => {
+    insertMermaidSvg()
+  })
+
+  observer.observe(article, {
+    attributes: true,
+    childList: true,
+    subtree: true
+  })
+
+  return () => {
+    observer.disconnect()
+  }
 }
 
 function renderPrismMac(codeLineNumbers, codeMacBar) {

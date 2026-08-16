@@ -64,19 +64,19 @@ export const BlogListScroll = props => {
           <h2 className='mb-4'>
             <SmartLink
               href={`/${p.slug}`}
-              className='text-black text-xl md:text-2xl no-underline hover:underline'>
+              className='text-black text-xl md:text-2xl no-underline hover:text-blue-600 dark:hover:text-blue-400 transition-transform duration-200 hover:scale-105'>
               {p.title}
             </SmartLink>
           </h2>
 
           <div className='mb-4 text-sm text-gray-700'>
             by{' '}
-            <a href='#' className='text-gray-700'>
+            <a href='#' className='text-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-transform duration-200 hover:scale-105'>
               {siteConfig('AUTHOR')}
             </a>{' '}
             on {p.date?.start_date || p.createdTime}
             <span className='font-bold mx-1'> | </span>
-            <a href='#' className='text-gray-700'>
+            <a href='#' className='text-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-transform duration-200 hover:scale-105'>
               {p.category}
             </a>
             <span className='font-bold mx-1'> | </span>
@@ -89,7 +89,7 @@ export const BlogListScroll = props => {
 
       <div
         onClick={handleGetMore}
-        className='w-full my-4 py-4 text-center cursor-pointer '>
+        className='w-full my-4 py-4 text-center cursor-pointer hover:text-black dark:hover:text-white transition-colors'>
         {' '}
         {hasMore ? locale.COMMON.MORE : `${locale.COMMON.NO_MORE} 😰`}{' '}
       </div>
