@@ -4,6 +4,9 @@ import { siteConfig } from '@/lib/config'
 
 jest.mock('@/lib/config', () => ({ siteConfig: jest.fn() }))
 jest.mock('@/lib/utils', () => ({ isBrowser: true, isSearchEngineBot: false }))
+jest.mock('@/lib/global', () => ({
+  useGlobal: () => ({ isDarkMode: false })
+}))
 jest.mock('@/components/Artalk', () => () => null)
 jest.mock('@/components/Tabs', () => ({ children }) => (
   <>
